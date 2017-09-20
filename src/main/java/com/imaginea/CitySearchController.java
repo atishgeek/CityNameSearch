@@ -1,15 +1,17 @@
 package com.imaginea;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.imaginea.dto.CitySearchDto;
+import com.imaginea.dto.ResponseDto;
 import com.imaginea.helper.SearchHelper;
 import com.imaginea.service.CitySearchService;
 
@@ -19,8 +21,8 @@ import com.imaginea.service.CitySearchService;
  * @author atishv
  *
  */
-@Controller
-public class CitySearchController extends  ResponseEntityExceptionHandler{
+@RestController
+public class CitySearchController {
 
 	@Autowired
 	CitySearchService searchService;
@@ -36,19 +38,13 @@ public class CitySearchController extends  ResponseEntityExceptionHandler{
 	
 	@RequestMapping(value="/suggest_cities")
 	@ResponseBody
-	public String suggestCities(@RequestParam(name="start")String name ,@RequestParam(name="atmost")int range) {
-		String result = "";
+	public ResponseDto suggestCities(@RequestParam(name="start")String name ,@RequestParam(name="atmost")int range) {
 		CitySearchDto dto = helper.convertRequestParamToDto(name,range);
 		
-		List<String> cityList = searchService.findSimilarNames(dto);
+		ResponseDto response = searchService.findSimilarNames(dto);
 		
-		if(null!=name || range!=0) {
-			result = helper.convertResultToString(cityList);
-		}else {
-			result = "Bad Parameters";
-		}
-		
-		return result;
+		return response;
 	}
+	
 
 }

@@ -1,7 +1,6 @@
 package com.imaginea.helper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -31,9 +30,6 @@ public class SearchHelper {
 		List<String> cityList = dto.getCityList();
 		String cityName = dto.getCityName();
 
-		// sort the list
-		Collections.sort(cityList);
-		
 		// Get the list of all the matched values 
 		List<String> matchedCityList = new ArrayList<>();
 		
@@ -54,7 +50,7 @@ public class SearchHelper {
 		return resultCityList;
 	}
 
-	public String convertResultToString(List<String> cityList) {
+	/*public String convertResultToString(List<String> cityList) {
 		String result = null;
 		if(null!=cityList && !cityList.isEmpty()) {
 			for (String string : cityList) {
@@ -68,6 +64,14 @@ public class SearchHelper {
 			result = "No Results found, try with other parameters";
 		}
 		return result;
+	}*/
+
+	public boolean isRequestValid(CitySearchDto dto) {
+		if(null!=dto.getCityName() || dto.getMaxLimit()!=0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	

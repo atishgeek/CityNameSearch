@@ -1,11 +1,10 @@
 package com.imaginea.service;
 
-import java.util.List;
-
 import com.imaginea.dto.CitySearchDto;
+import com.imaginea.dto.ResponseDto;
 
 public interface CitySearchService {
 
-	List<String> findSimilarNames(CitySearchDto dto);
+	public ResponseDto findSimilarNames(CitySearchDto dto);
 
 }
