@@ -2,6 +2,9 @@ package com.imaginea.service.Impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,10 +33,12 @@ public class CitySearchServiceImpl implements CitySearchService{
 	
 	@Override
 	public List<String> findSimilarNames(CitySearchDto dto) {
-		Path path = Paths.get("src/main/resources/CityNameList.csv");
+		Path path = Paths.get("CityNameList.csv");
 		List<String> cityList = new ArrayList<>();
 		try {
-			BufferedReader reader = Files.newBufferedReader(path);
+			InputStream in =  getClass().getClassLoader().getResourceAsStream("CityNameList.csv");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			//BufferedReader reader = Files.newBufferedReader(path);
 			String currentLine = null;
 			
 			while((currentLine = reader.readLine() )!=null) {

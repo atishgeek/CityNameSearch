@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.imaginea</groupId>
   <artifactId>CitySearchModule</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>CitySearchModule Maven Webapp</name>
   <url>http://maven.apache.org</url>
@@ -55,6 +55,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+           
+    	     	   <configuration>
+					 <archive>
+					<manifest>
+						<!-- Jar file entry point -->
+							<mainClass>com.imaginea.Launcher</mainClass>
+						</manifest>
+					  </archive>
+					</configuration>
+          
             </plugin>
         </plugins>
   </build>
